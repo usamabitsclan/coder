@@ -14,7 +14,7 @@
     <div class="container" style="padding-top: 10px;">
       <h3>LOG IN</h3>
       <hr>
-      <form method="post" name="LOGINUSER" action="<?php echo base_url().'index.php/CarModel/canlogin';?>" >
+      <form method="post" name="LOGINUSER" action="<?php echo base_url().'index.php/loginController/canlogin';?>" >
 
         <div class="row">
           <div class="col-md-12">
@@ -66,11 +66,7 @@
      </div>
      <div class="row">
        <div class="col-md-8">
-         <div class="row">
-           <div class="col-6"><p>New Here ? Register YourSelf...</p></div>
-             <div class="col-6"> <a href="<?php echo base_url().'index.php/CarModel/showCreateModel' ?>" class="btn btn-primary">Register</a></div>
-
-         </div>
+      
 
        </div>
      </div>

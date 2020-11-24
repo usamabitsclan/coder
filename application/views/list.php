@@ -6,6 +6,8 @@
 	<script type="text/javascript" src="<?php echo base_url();?>/assets/js/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url();?>/assets/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>/assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/js/dropzone/dropzone.min.css" />
+	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dropzone/dropzone.min.js"></script>
 
 
 </head>
@@ -219,6 +221,8 @@
 							$("#create").modal("hide");
 							$("#ajaxResponse .modal-body").html(response["message"]);
 							$("#ajaxResponse").modal("show");
+
+
 							$(".nameError").html(response[""]).removeClass('invalid-feedback  d-block');
 							$("name").addClass('is-invalid');
 

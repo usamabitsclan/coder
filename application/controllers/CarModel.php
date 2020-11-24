@@ -2,8 +2,14 @@
 /**
  * 
  */
-class CarModel extends CI_controller
+class CarModel extends SU_Controller
 {
+	function  __construct() {
+        parent::__construct();
+
+        // Load file model
+        $this->load->model('Car_model');
+    }
 	#this method will login
 	function user(){
 		$this->load->view('user');
@@ -37,11 +43,19 @@ class CarModel extends CI_controller
           if($query['user_role'] == 1)
           {
           	//this is user role
-            $this->session->set_flashdata('success','Logged In Successfully as admin!');
+          	$this->load->library('session');
+          	$this->session->set_userdata('logged_in',TRUE);
+          	//$name = $this->session->userdata('name');
+          	//$name = $this->session->userdata('name','logged_in');
+          	//print_r($name);
+
+            $this->session->set_flashdata('success','Logged In Successfully as Client!');
             redirect(base_url().'index.php/CarModel/index');
           }
           elseif ($query['user_role'] == 2) {
           	//this is admin role
+          	$this->load->library('session');
+          	$this->session->set_userdata('logged_in',TRUE);
             $this->session->set_flashdata('success','Logged In Successfully as admin!');
             redirect(base_url().'index.php/CarModel/Adminindex');
           }
@@ -81,6 +95,18 @@ class CarModel extends CI_controller
 		$response['html'] = $html;
 		echo json_encode($response);
 	}
+	// this function will edit using ajax
+	function getCarModel($id){
+		$this->load->model('Car_model');
+		$rowss = $this->Car_model->getRow($id);
+		$data['row'] = $rowss;
+
+
+		$html = $this->load->view('create',$data,true);
+		$response['html'] = $html;
+		echo json_encode($response);
+
+	}
 	function saveModel(){
 		$this->load->model('Car_model');
 		$this->load->library('form_validation');
@@ -92,7 +118,7 @@ class CarModel extends CI_controller
 			$formArray = array();
 			$formArray['name'] = $this->input->post('name');
 			$formArray['color'] = $this->input->post('color'); 
-			$formArray['transmission'] = $this->input->post('transmission'); 
+			$formArray['transmission'] = "NotApproved"; 
 			$formArray['price'] = $this->input->post('price'); 
 			$formArray['created_at'] = date('Y-m-d H:i:s');
 			$formArray['updated_at'] = date('Y-m-d H:i:s');
@@ -121,21 +147,7 @@ class CarModel extends CI_controller
 		}
 		echo json_encode($response);
 	}
-// this function will edit using ajax
-	function getCarModel($id){
-		$this->load->model('Car_model');
 
-		$rowss = $this->Car_model->getRow($id);
-		//print_r($rowss);
-		$data['row'] = $rowss;
-		//print_r($data['row']['name']);
-
-
-		$html = $this->load->view('edit',$data,true);
-		$response['html'] = $html;
-		echo json_encode($response);
-
-	}
 
 	function updateModel(){
 		//print_r("here");

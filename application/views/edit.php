@@ -3,7 +3,7 @@
 <div class="modal-body">
       	<div class="form-group">
       		<label>Name</label>
-      		<input type="text" name="name" id="name" value="<?php echo $row['name']?>" class="form-control">
+      		<input type="text" name="name" id="name" value="<?php if(isset($row)) echo $row['name']?>" class="form-control">
       		<p class="nameError"></p>
       	</div>
        <div class="form-group">
@@ -15,8 +15,8 @@
        <div class="form-group">
       		<label>STATUS</label>
       		<select id="transmission" name="transmission" class="form-control">
-      			<option value="Automatic" <?php echo ($row['transmission'] == "Approved") ?'selected': ''?>>Approved</option>
-      			<option value="Manual" <?php echo ($row['transmission'] == "NotApproved") ?'selected': ''?>>Not Approved</option>
+      			<option value="Approved" <?php echo ($row['transmission'] == "Approved") ?'selected': ''?>>Approved</option>
+      			<option value="NotApproved" <?php echo ($row['transmission'] == "NotApproved") ?'selected': ''?>>Not Approved</option>
 
       			
       		</select>

@@ -24,7 +24,19 @@
       	</div>
 
 
-        <div id="dropzone" class="dropzone"></div>
+        <div id="dropzone" class="dropzone">
+          <?php
+              if(!empty($files)){ foreach($files as $row){
+              $filePath = 'uploads/'.$row["file_name"];
+              $fileMime = mime_content_type($filePath);
+                  ?>
+              <embed src="<?php echo base_url('uploads/'.$row["file_name"]); ?>" type="<?php echo $fileMime; ?>" width="350px" height="240px" />
+                <?php
+                  } }else{
+            ?>
+              <p></p>
+          <?php } ?>
+        </div>
        
       </div>
       <div class="modal-footer">

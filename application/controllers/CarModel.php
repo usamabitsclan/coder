@@ -91,6 +91,7 @@ class CarModel extends SU_Controller
 	}
 	function showCreateForm(){
 		// There is a third optional parameter lets you change the behavior of the function so that it returns data as a string rather than sending it to your browser. This can be useful if you want to process the data in some way. If you set the parameter to true (boolean) it will return data. The default behavior is false, which sends it to your browser. Remember to assign it to a variable if you want the data returned:
+		//$response['files'] = $this->File->getRows();
 		$html = $this->load->view('create','',true);
 		$response['html'] = $html;
 		echo json_encode($response);
@@ -98,8 +99,11 @@ class CarModel extends SU_Controller
 	// this function will edit using ajax
 	function getCarModel($id){
 		$this->load->model('Car_model');
+		$this->load->model('File');
+
 		$rowss = $this->Car_model->getRow($id);
 		$data['row'] = $rowss;
+		$data['files'] = $this->File->getRows();
 
 
 		$html = $this->load->view('create',$data,true);

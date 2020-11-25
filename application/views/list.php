@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>/assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/js/dropzone/dropzone.min.css" />
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dropzone/dropzone.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
 
 </head>
@@ -342,11 +344,39 @@
 	});
 
 	function confirmDelete(id){
-		//alert(id);
-		$("#deletemodal").modal("show");
-		$("#deletemodal .modal-body").html("Are you sure you want to delete #"+id+"th record ?");
-		$("#deletemodal").data("id",id);
+		
 
+		// $("#deletemodal").modal("show");
+		// $("#deletemodal .modal-body").html("Are you sure you want to delete #"+id+"th record ?");
+		 $("#deletemodal").data("id",id);
+
+		//alert(id);
+		$.confirm({
+    					title: 'Confirm!',
+    					content: 'Delete confirm!',
+    					
+    				buttons: {
+        				confirm: function () {
+        					deleteNow();
+        					
+            			//$.alert('Confirmed!');
+        			},
+        				cancel: function () {
+            			$.alert('No Data Removed!');
+        			},
+        			// somethingElse: {
+           //  				text: 'Something else',
+           //  				btnClass: 'btn-blue',
+           //  				keys: ['enter', 'shift'],
+           //  				action: function(){
+           //      			$.alert('Something else?');
+           //  			}
+        			//}
+    			}
+			});
+		
+		
+		
 	}
 
 	function deleteNow(){
@@ -359,6 +389,8 @@
 			dataType:'json',
 			success : function(response){
 				if(response['status'] == 1){
+					
+
 					$("#deletemodal").modal("hide");	
 					$("#ajaxResponse .modal-body").html(response["msg"]);
 					$("#ajaxResponse").modal("show");
@@ -367,12 +399,11 @@
       				}, 5000);						
 				}else{
 					$("#deletemodal").modal("hide");	
-					$("#ajaxResponse .modal-body").html(response["msg"]);
-					$("#ajaxResponse").modal("show");
-					setTimeout(function(){// wait for 5 secs(2)
-           			location.reload(); // then reload the page.(3)
-      				}, 5000);	
-					
+					//$("#ajaxResponse .modal-body").html(response["msg"]);
+					//$("#ajaxResponse").modal("show");
+					location.reload();
+
+      				
 
 				}
 
